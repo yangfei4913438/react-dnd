@@ -29,7 +29,8 @@ const BoxList = forwardRef(
       getNode: () => elementRef.current,
     }));
 
-    if (isOver) {
+    // 如果是内部数组拖动，无需改变颜色
+    if (isOver && !sourceItem.list) {
       const res = list.map((o) => o.id).includes(sourceItem.id);
       listStyle["border"] = `2px solid ${!res ? "green" : "red"}`;
     }
