@@ -11,11 +11,24 @@ const style = {
   overflow: "auto",
 };
 
-const Target = ({ connectDropTarget, list = [], pushData = () => {} }) => {
+const Target = ({
+  connectDropTarget,
+  list = [],
+  pushData = () => {},
+  moveData = () => {},
+}) => {
   return connectDropTarget(
     <div style={{ ...style }}>
       {list.map((item, idx) => {
-        return <TargetBoxList list={item} key={idx} pushData={pushData} />;
+        return (
+          <TargetBoxList
+            list={item}
+            index={idx}
+            key={idx}
+            moveData={moveData}
+            pushData={pushData}
+          />
+        );
       })}
     </div>
   );
@@ -25,7 +38,8 @@ const TargetContainer = DropTarget(
   "BOX",
   {
     drop(props, monitor, component) {
-      if (monitor.didDrop()) {
+      // 有list属性，表示当前是区域内部的移动，不能执行添加操作
+      if (monitor.didDrop() || monitor.getItem().list) {
         return;
       }
       props.setData(monitor.getItem());

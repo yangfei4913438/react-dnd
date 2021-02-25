@@ -7,7 +7,7 @@ const style = {
   margin: "0.5rem",
 };
 
-const SourceBoxRaw = ({ data, isDragging, connectDragSource, delSource }) => {
+const SourceBoxRaw = ({ data, isDragging, connectDragSource }) => {
   const opacity = isDragging ? 0.4 : 1;
   let backgroundColor = data.color;
 
